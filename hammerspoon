@@ -1,0 +1,14 @@
+-- init.lua
+-- https://github.com/asmagill/hs._asm.undocumented.spaces
+local spaces = require('hs.spaces')
+
+-- Open Alacritty with `cmd + '`
+hs.hotkey.bind({"command"}, "'", function()
+  local alacritty = hs.application.find('alacritty')
+  if alacritty:isFrontmost() then
+    alacritty:hide()
+  else
+    hs.application.launchOrFocus("/Applications/Alacritty.app")
+  end
+end)
+
