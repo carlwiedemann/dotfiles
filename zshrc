@@ -87,7 +87,7 @@ alias ber="bundle exec rake"
 # Kubernetes
 alias k="kubectl"
 
-# Open intellij
+# Open IntelliJ
 function idea {
   open -na "IntelliJ IDEA.app" --args "$@"
 }
@@ -101,6 +101,9 @@ alias trim="sed 's/^ *//' | sed 's/ *$//'"
 alias serve="python -m SimpleHTTPServer 8000"
 
 # Debugging
+# See https://gist.github.com/carlwiedemann/ac9d1c8f58801a9e160ff1b44f16ae39
+# Add this file to global gitignore
+# # git config --global core.excludesfile ~/.gitignore
 function bringdd {
   cp ~/_src/_dd.rb config/initializers
 }
