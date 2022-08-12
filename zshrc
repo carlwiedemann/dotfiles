@@ -108,7 +108,7 @@ function bringdd {
   cp ~/_src/_dd.rb config/initializers
 }
 
-alias readdd="touch /tmp/debug.log && tail -f /tmp/debug.log"
+alias readdd="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias wipedd="cat /dev/null > /tmp/debug.log"
 
 ############################
