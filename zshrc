@@ -69,6 +69,11 @@ else
   export PATH="/usr/local/bin:$PATH"
 fi
 
+alias ls="exa"
+alias ll="exa -alh --git"
+
+alias cat='bat --paging=never'
+
 # Brew env variables.
 eval "$(brew shellenv)"
 
@@ -143,6 +148,9 @@ function mr {
 
 # Tests in monolith
 alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
+
+# Login as intel session
+alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
 ###########
 # ENDINGS #
