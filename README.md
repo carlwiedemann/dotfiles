@@ -2,7 +2,7 @@
 
 * Alacrity - ~/.config/alacritty/alacritty.yml
 * asdf - ~/.asdfrc
-* Hammerspoon - ~/.hammerspoon
+* Hammerspoon - ~/.hammerspoon/init.lua
 * ideavimrc - ~/.ideavimrc
 * Starship - ~/.config/starship.toml
 * Tmux - ~/.tmux.conf
