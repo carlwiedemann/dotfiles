@@ -12,3 +12,7 @@ hs.hotkey.bind({"command"}, "'", function()
   end
 end)
 
+-- Send esc `ctrl + return`
+hs.hotkey.bind({"control"}, "return", function()
+  hs.eventtap.keyStroke({}, "escape")
+end)
