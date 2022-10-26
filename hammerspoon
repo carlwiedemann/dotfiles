@@ -1,3 +1,4 @@
+-- vim: syntax=lua
 -- init.lua
 -- https://github.com/asmagill/hs._asm.undocumented.spaces
 local spaces = require('hs.spaces')
