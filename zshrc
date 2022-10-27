@@ -152,6 +152,11 @@ alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
 # Login as intel session
 alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
+# Rename associations
+function mv_associations {
+  find spec/fixtures/approvals -name "*.received.txt" -exec bash -c 'mv "$1" "${1%.received.txt}".approved.txt' - '{}' \;
+}
+
 ###########
 # ENDINGS #
 ###########
