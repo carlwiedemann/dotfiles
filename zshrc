@@ -154,7 +154,12 @@ alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
 # Rename associations
 function mv_associations {
-  find spec/fixtures/approvals -name "*.received.txt" -exec bash -c 'mv "$1" "${1%.received.txt}".approved.txt' - '{}' \;
+  find spec/fixtures/approvals -name "*.received.json" -exec bash -c 'mv "$1" "${1%.received.json}".approved.json' - '{}' \;
+}
+
+# Remove associations
+function rm_associations {
+  find spec/fixtures/approvals -name "*.received.json" | xargs rm
 }
 
 ###########
