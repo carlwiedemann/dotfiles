@@ -1,0 +1,33 @@
+[user]
+  name = Carl Wiedemann
+# email = carl.wiedemann@checkr.com
+#	signingkey = 3AA068723663D81E
+[push]
+  default = current
+	autoSetupRemote = true
+[pull]
+  default = current
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[core]
+  pager = delta
+# excludesfile = /Users/carl.wiedemann/.gitignore
+[interactive]
+  diffFilter = delta --color-only
+[add.interactive]
+  useBuiltin = false # required for git 2.37.0
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  side-by-side = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
+[commit]
+	gpgsign = true
+[gpg "x509"]
+	program = gpg
