@@ -152,14 +152,24 @@ alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
 # Login as intel session
 alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
-# Rename associations
-function mv_associations {
+# Rename approvals
+function mv_approvals {
   find spec/fixtures/approvals -name "*.received.json" -exec bash -c 'mv "$1" "${1%.received.json}".approved.json' - '{}' \;
 }
 
-# Remove associations
-function rm_associations {
+# Remove approvals
+function rm_approvals {
   find spec/fixtures/approvals -name "*.received.json" | xargs rm
+}
+
+# View monolith commit
+function glmc {
+  open "https://gitlab.checkrhq.net/platform/checkr/-/commit/$1"
+}
+
+# View monolith file path
+function glmf {
+  open "https://gitlab.checkrhq.net/platform/checkr/-/blob/master/$1"
 }
 
 ###########
