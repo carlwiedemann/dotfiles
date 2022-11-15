@@ -1,12 +1,13 @@
 [user]
   name = Carl Wiedemann
 # email = carl.wiedemann@checkr.com
-#	signingkey = 3AA068723663D81E
+#  signingkey = 3AA068723663D81E
 [push]
   default = current
-	autoSetupRemote = true
+  autoSetupRemote = true
 [pull]
   default = current
+  rebase = true
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [mergetool "Kaleidoscope"]
@@ -28,6 +29,6 @@
 [diff]
   colorMoved = default
 [commit]
-	gpgsign = true
+  gpgsign = true
 [gpg "x509"]
-	program = gpg
+  program = gpg
