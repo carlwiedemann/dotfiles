@@ -50,10 +50,6 @@ plugins=(git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
-############################
-# BASIC USER CONFIGURATION #
-############################
-
 export EDITOR='vim'
 
 alias zshconfig="vim ~/.zshrc"
@@ -62,13 +58,8 @@ alias zshconfig="vim ~/.zshrc"
 #export GPG_TTY=$(tty)
 #gpgconf --launch gpg-agent
 
-## Toggle homebrew path based on whether x86 is used or not.
-#if uname -m | grep -q 'arm64'; then
 export PATH="/opt/homebrew/bin:$PATH"
-#else
-#  export PATH="/usr/local/bin:$PATH"
-#fi
-#
+
 alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1TB/mba2022"
 
 # Go
@@ -121,6 +112,11 @@ function bringdd {
 alias readdd="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias wipedd="cat /dev/null > /tmp/debug.log"
 
+# Login as intel session
+alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
+
+# Foreground quickly.
+# https://blog.sher.pl/2014/03/21/how-to-boost-your-vim-productivity/?utm_source=pocket_reader
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -132,64 +128,6 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-
-############################
-# CHECKR USER CONFIGURATION #
-############################
-
-# Teleport
-export TELEPORT_PROXY="heimdallr.checkrhq.net"
-export TELEPORT_AUTH="gitlab"
-export TSH_USER=carl.wiedemann
-
-alias icloud="cd /Users/carlwiedemann/Library/Mobile Documents/com~apple~CloudDocs"
-
-# Gitlab
-# export GITLAB_PAT=$(catconfig GITLAB_PAT)
-
-# Login to container registry so that Docker can pull images
-function checkr_docker_login {
-  echo ${GITLAB_PAT} | docker login -u${USER} gitlab-registry.checkrhq.net --password-stdin
-}
-
-# Ruby gems & gemfury
-#export RUBYGEMS_API_KEY=$(catconfig RUBYGEMS_API_KEY)
-#export BUNDLE_GEM__FURY__IO=$(catconfig BUNDLE_GEM__FURY__IO)
-#export GEM_FURY_PUSH_TOKEN=$(catconfig GEM_FURY_PUSH_TOKEN)
-
-# Open a merge request
-function mr {
-  BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  REPO=$(basename $PWD)
-  GROUP=$(git remote get-url origin | cut -d : -f 2 | xargs dirname)
-  open "https://gitlab.checkrhq.net/$GROUP/$REPO/-/merge_requests/new?merge_request%5Bsource_branch%5D=$BRANCH"
-}
-
-# Tests in monolith
-alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
-
-# Login as intel session
-alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
-
-# Rename approvals
-function mv_approvals {
-  find spec/fixtures/approvals -name "*.received.json" -exec bash -c 'mv "$1" "${1%.received.json}".approved.json' - '{}' \;
-}
-
-# Remove approvals
-function rm_approvals {
-  find spec/fixtures/approvals -name "*.received.json" | xargs rm
-}
-
-# View monolith commit
-function glmc {
-  open "https://gitlab.checkrhq.net/platform/checkr/-/commit/$1"
-}
-
-# View monolith file path
-function glmf {
-  open "https://gitlab.checkrhq.net/platform/checkr/-/blob/master/$1"
-}
 
 ###########
 # ENDINGS #

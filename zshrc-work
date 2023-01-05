@@ -116,6 +116,23 @@ function bringdd {
 alias readdd="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias wipedd="cat /dev/null > /tmp/debug.log"
 
+# Login as intel session
+alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
+
+# Foreground quickly.
+# https://blog.sher.pl/2014/03/21/how-to-boost-your-vim-productivity/?utm_source=pocket_reader
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 ############################
 # CHECKR USER CONFIGURATION #
 ############################
@@ -148,9 +165,6 @@ function mr {
 
 # Tests in monolith
 alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
-
-# Login as intel session
-alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
 # Rename approvals
 function mv_approvals {
