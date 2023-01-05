@@ -59,20 +59,15 @@ export EDITOR='vim'
 alias zshconfig="vim ~/.zshrc"
 
 # GPG setup to launch agent at start.
-#export GPG_TTY=$(tty)
-#gpgconf --launch gpg-agent
+export GPG_TTY=$(tty)
+gpgconf --launch gpg-agent
 
-## Toggle homebrew path based on whether x86 is used or not.
-#if uname -m | grep -q 'arm64'; then
-export PATH="/opt/homebrew/bin:$PATH"
-#else
-#  export PATH="/usr/local/bin:$PATH"
-#fi
-#
-alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1TB/mba2022"
-
-# Go
-export GOPATH=$HOME/_src/goworkspace
+# Toggle homebrew path based on whether x86 is used or not.
+if uname -m | grep -q 'arm64'; then
+  export PATH="/opt/homebrew/bin:$PATH"
+else
+  export PATH="/usr/local/bin:$PATH"
+fi
 
 alias ls="exa"
 alias ll="exa -alh --git"
@@ -121,18 +116,6 @@ function bringdd {
 alias readdd="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias wipedd="cat /dev/null > /tmp/debug.log"
 
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
 ############################
 # CHECKR USER CONFIGURATION #
 ############################
@@ -142,10 +125,8 @@ export TELEPORT_PROXY="heimdallr.checkrhq.net"
 export TELEPORT_AUTH="gitlab"
 export TSH_USER=carl.wiedemann
 
-alias icloud="cd /Users/carlwiedemann/Library/Mobile Documents/com~apple~CloudDocs"
-
 # Gitlab
-# export GITLAB_PAT=$(catconfig GITLAB_PAT)
+export GITLAB_PAT=$(catconfig GITLAB_PAT)
 
 # Login to container registry so that Docker can pull images
 function checkr_docker_login {
@@ -153,9 +134,9 @@ function checkr_docker_login {
 }
 
 # Ruby gems & gemfury
-#export RUBYGEMS_API_KEY=$(catconfig RUBYGEMS_API_KEY)
-#export BUNDLE_GEM__FURY__IO=$(catconfig BUNDLE_GEM__FURY__IO)
-#export GEM_FURY_PUSH_TOKEN=$(catconfig GEM_FURY_PUSH_TOKEN)
+export RUBYGEMS_API_KEY=$(catconfig RUBYGEMS_API_KEY)
+export BUNDLE_GEM__FURY__IO=$(catconfig BUNDLE_GEM__FURY__IO)
+export GEM_FURY_PUSH_TOKEN=$(catconfig GEM_FURY_PUSH_TOKEN)
 
 # Open a merge request
 function mr {
