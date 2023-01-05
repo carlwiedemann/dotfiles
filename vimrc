@@ -28,10 +28,6 @@ set directory=~/.vim/backup
 " Font.
 set guifont=Hack:h18
 
-" Use `ctrl + return` to return to normal mode insert mode.
-"inoremap <C-CR> <Esc>
-"vnoremap <C-CR> <Esc>
-
 " Home and end using emacs.
 inoremap <C-E> <End>
 nnoremap <C-E> <End>
@@ -58,10 +54,38 @@ noremap <Leader>P "+p
 vnoremap p "_dP
 
 " Paste inner word.
-noremap piw ciw<C-r>0<Esc>
+noremap ypiw ciw<C-r>0<Esc>
 " Paste inner paragraph.
-noremap pip cip<C-r>0<Esc>
+noremap ypip cip<C-r>0<Esc>
 
 " Use system clipboard.
 " https://stackoverflow.com/a/30691754
 set clipboard=unnamed
+
+" Plugins, using Vim Plug. https://github.com/junegunn/vim-plug
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
+" Make sure you use single quotes
+
+Plug 'chrisbra/matchit'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jeffkreeftmeijer/vim-numbertoggle', { 'branch': 'main' }
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-utils/vim-line'
+
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" You can revert the settings after the call like so:
+"   filetype indent off   " Disable file-type-specific indentation
+"   syntax off            " Disable syntax highlighting
