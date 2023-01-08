@@ -50,43 +50,34 @@ plugins=(git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
+###########
+# INITIAL #
+###########
+
 export EDITOR='vim'
 
-alias zshconfig="vim ~/.zshrc"
-
-# GPG setup to launch agent at start.
-#export GPG_TTY=$(tty)
-#gpgconf --launch gpg-agent
-
-export PATH="/opt/homebrew/bin:$PATH"
-
-alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1TB/mba2022"
-
-# Go
-export GOPATH=$HOME/_src/goworkspace
-
-alias ls="exa"
-alias ll="exa -alh --git"
-
-alias cat='bat --paging=never'
-
-# Brew env variables.
+# Toggle homebrew path based on whether x86 is used or not.
+if uname -m | grep -q 'arm64'; then
+  export PATH="/opt/homebrew/bin:$PATH"
+else
+  export PATH="/usr/local/bin:$PATH"
+fi
 eval "$(brew shellenv)"
 
-# Use asdf instead of rbenv.
+###############
+# USER CONFIG #
+###############
+
+# asdf
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
-# Load config variables from files.
-function catconfig {
-  cat ~/.config/$1
-}
-
-# Bundler
+# Ruby
+export RUBY_CONFIGURE_OPTS="--with-zlib-dir=$(brew --prefix zlib) --with-openssl-dir=$(brew --prefix openssl@1.1) --with-readline-dir=$(brew --prefix readline) --with-libyaml-dir=$(brew --prefix libyaml)"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 
-# Kubernetes
-alias k="kubectl"
+# Golang
+export GOPATH=$HOME/_src/goworkspace
 
 # Open IntelliJ
 function idea {
@@ -98,26 +89,9 @@ function gdk {
   git difftool -y -t Kaleidoscope $1
 }
 
-alias trim="sed 's/^ *//' | sed 's/ *$//'"
-alias serve="python -m SimpleHTTPServer 8000"
-
-# Debugging
-# See https://gist.github.com/carlwiedemann/ac9d1c8f58801a9e160ff1b44f16ae39
-# Add this file to global gitignore
-# # git config --global core.excludesfile ~/.gitignore
-function bringdd {
-  cp ~/_src/_dd.rb config/initializers
-}
-
-alias readdd="touch /tmp/debug.log && less +F /tmp/debug.log"
-alias wipedd="cat /dev/null > /tmp/debug.log"
-
-# Login as intel session
-alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
-
-# Foreground quickly.
-# https://blog.sher.pl/2014/03/21/how-to-boost-your-vim-productivity/?utm_source=pocket_reader
-fancy-ctrl-z () {
+# Foreground quickly
+# @see https://blog.sher.pl/2014/03/21/how-to-boost-your-vim-productivity/?utm_source=pocket_reader
+function fancy_ctrl_z {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
     zle accept-line
@@ -126,17 +100,38 @@ fancy-ctrl-z () {
     zle clear-screen
   fi
 }
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+zle -N fancy_ctrl_z
+bindkey '^Z' fancy_ctrl_z
+
+# Misc
+alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1TB/mba2022"
+alias cat='bat --paging=never'
+alias dread="touch /tmp/debug.log && less +F /tmp/debug.log"
+alias dwipe="cat /dev/null > /tmp/debug.log"
+alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
+alias ls="exa"
+alias ll="exa -alh --git"
+alias serve="python -m SimpleHTTPServer 8000"
+alias trim="sed 's/^ *//' | sed 's/ *$//'"
+alias zshconfig="vim ~/.zshrc"
+
+##########
+# EXTRAS #
+##########
+
+if [[ -f ~/.zshrc-work ]]; then
+  source .zshrc-work
+fi
 
 ###########
 # ENDINGS #
 ###########
 
-# Starship
+# Starship setup
 eval "$(starship init zsh)"
 
-# TMUX setup, see https://koenwoortman.com/tmux-sessions-should-be-nested-with-care-unset-tmux-to-force/
+# TMUX setup
+# @see https://koenwoortman.com/tmux-sessions-should-be-nested-with-care-unset-tmux-to-force/
 tmux has-session -t=main 2> /dev/null
 
 if [[ $? -ne 0 ]]; then
