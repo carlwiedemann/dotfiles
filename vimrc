@@ -54,9 +54,9 @@ noremap <Leader>P "+p
 vnoremap p "_dP
 
 " Paste inner word.
-noremap ypiw ciw<C-r>0<Esc>
+noremap gpiw ciw<C-r>0<Esc>
 " Paste inner paragraph.
-noremap ypip cip<C-r>0<Esc>
+noremap gpip cip<C-r>0<Esc>
 
 " Use system clipboard.
 " https://stackoverflow.com/a/30691754
