@@ -5,6 +5,7 @@
 | Alacrity     | alacritty.yml | ~/.config/alacritty/alacritty.yml |
 | asdf         | asdfrc        | ~/.asdfrc                         |
 | Awesome Print| aprc          | ~/.aprc                           |
+| brew bundle  | Brewfile      | ~/Brewfile (optional)             |
 | bat          | bat           | ~/.config/bat/config              |
 | Git config   | gitconfig     | ~/.gitconfig                      |
 | Git ignore   | gitignore     | ~/.gitignore                      |
