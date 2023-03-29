@@ -72,7 +72,7 @@ eval "$(brew shellenv)"
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
-export RUBY_CONFIGURE_OPTS="--with-zlib-dir=$(brew --prefix zlib) --with-openssl-dir=$(brew --prefix openssl@1.1) --with-readline-dir=$(brew --prefix readline) --with-libyaml-dir=$(brew --prefix libyaml)"
+export RUBY_CONFIGURE_OPTS="--with-zlib-dir=$(brew --prefix zlib) --with-openssl-dir=$(brew --prefix openssl@1.1) --with-readline-dir=$(brew --prefix readline) --with-libyaml-dir=$(brew --prefix libyaml) --with-odbc-dir=$(brew --prefix unixodbc)"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 
