@@ -1,7 +1,5 @@
 -- vim: syntax=lua
 -- init.lua
--- https://github.com/asmagill/hs._asm.undocumented.spaces
-local spaces = require('hs.spaces')
 
 -- Open Alacritty with `cmd + '`
 hs.hotkey.bind({"command"}, "'", function()
