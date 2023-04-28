@@ -1,15 +1,25 @@
 -- vim: syntax=lua
 -- init.lua
 
--- Open Alacritty with `cmd + '`
-hs.hotkey.bind({"command"}, "'", function()
-  local alacritty = hs.application.find('alacritty')
-  if alacritty:isFrontmost() then
-    alacritty:hide()
-  else
-    hs.application.launchOrFocus("/Applications/Alacritty.app")
-  end
-end)
+local apps = {
+  {modifiers = {"command"}, key = "'", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
+  {modifiers = {"command", "ctrl"}, key = "l", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
+  {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
+  {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
+  {modifiers = {"command", "ctrl"}, key = "m", appName = 'chrome', appPath = "/Applications/Google Chrome.app"},
+  {modifiers = {"command", "ctrl"}, key = "i", appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"}
+}
+
+for _, appDetails in ipairs(apps) do
+  hs.hotkey.bind(appDetails.modifiers, appDetails.key, function()
+    local app = hs.application.find(appDetails.appName)
+    if app:isFrontmost() then
+      app:hide()
+    else
+      hs.application.launchOrFocus(appDetails.appPath)
+    end
+  end)
+end
 
 -- Send esc `ctrl + return`
 hs.hotkey.bind({"control"}, "return", function()
