@@ -2,7 +2,7 @@
 -- init.lua
 
 local apps = {
-  -- {modifiers = {"command"}, key = "'", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
+  {modifiers = {"command"}, key = "'", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
   {modifiers = {"command", "ctrl"}, key = "l", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
   {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
   {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
