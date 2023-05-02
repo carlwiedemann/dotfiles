@@ -13,12 +13,10 @@ local apps = {
 for _, appDetails in ipairs(apps) do
   hs.hotkey.bind(appDetails.modifiers, appDetails.key, function()
     local app = hs.application.find(appDetails.appName)
-    if app:isFrontmost() then
-      app:hide()
-    else
-      hs.application.launchOrFocus(appDetails.appPath)
+    if app then
       app:setFrontmost(true)
     end
+    hs.application.launchOrFocus(appDetails.appPath)
   end)
 end
 
