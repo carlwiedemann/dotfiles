@@ -10,6 +10,7 @@ local apps = {
   {modifiers = {"command", "ctrl"}, key = "i", appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"},
   {modifiers = {"command", "ctrl"}, key = "n", appName = 'evernote', appPath = "/Applications/Evernote.app"},
   {modifiers = {"command", "ctrl"}, key = "f", appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"}
+  {modifiers = {"command", "ctrl"}, key = "p", appName = 'spotify', appPath = "/Applications/Spotify.app"}
 }
 
 for _, appDetails in ipairs(apps) do
