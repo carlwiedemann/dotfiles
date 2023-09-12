@@ -25,6 +25,7 @@ export TSH_USER=carl.wiedemann
 
 # Gitlab
 export GITLAB_PAT=$(catconfig GITLAB_PAT)
+export GITLAB_CI_TOKEN=$GITLAB_PAT
 
 # Login to container registry so that Docker can pull images
 function checkr_docker_login {
@@ -57,9 +58,14 @@ function rm_approvals {
   find spec/fixtures/approvals -name "*.received.json" | xargs rm
 }
 
-# View monolith commit
+# View monolith commit on GitLab
 function glmc {
   open "https://gitlab.checkrhq.net/platform/checkr/-/commit/$1"
+}
+
+# View monolith commit on GitHub
+function ghmc {
+  open "https://github.com/checkr/checkr/commit/$1"
 }
 
 # View monolith file path

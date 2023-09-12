@@ -111,10 +111,11 @@ alias dwipe="cat /dev/null > /tmp/debug.log"
 alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias ls="exa"
 alias ll="exa -alh --git"
-alias python="python3"
+# alias python="python3"
 alias serve="python -m http.server 8000"
 alias trim="sed 's/^ *//' | sed 's/ *$//'"
 alias zshconfig="vim ~/.zshrc"
+alias qlp="qlmanage -p"
 
 ##########
 # EXTRAS #

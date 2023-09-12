@@ -2,15 +2,15 @@
 -- init.lua
 
 local apps = {
-  -- {modifiers = {"command"}, key = "'", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
-  {modifiers = {"command", "ctrl"}, key = "l", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
-  {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
-  {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
-  {modifiers = {"command", "ctrl"}, key = "m", appName = 'chrome', appPath = "/Applications/Google Chrome.app"},
+  {modifiers = {"command", "ctrl"}, key = "f", appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"},
   {modifiers = {"command", "ctrl"}, key = "i", appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"},
+  {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
+  {modifiers = {"command", "ctrl"}, key = "l", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
+  {modifiers = {"command", "ctrl"}, key = "m", appName = 'chrome', appPath = "/Applications/Google Chrome.app"},
   {modifiers = {"command", "ctrl"}, key = "n", appName = 'evernote', appPath = "/Applications/Evernote.app"},
-  {modifiers = {"command", "ctrl"}, key = "f", appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"}
-  {modifiers = {"command", "ctrl"}, key = "p", appName = 'spotify', appPath = "/Applications/Spotify.app"}
+  {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
+  {modifiers = {"command", "ctrl"}, key = "p", appName = 'spotify', appPath = "/Applications/Spotify.app"},
+  {modifiers = {"command", "ctrl"}, key = "u", appName = 'tuple', appPath = "/Applications/Tuple.app"}
 }
 
 for _, appDetails in ipairs(apps) do
