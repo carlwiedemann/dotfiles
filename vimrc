@@ -3,6 +3,7 @@ set nocompatible
 set number relativenumber
 set ruler
 syntax on
+set modeline
 
 " Set encoding
 set encoding=utf-8

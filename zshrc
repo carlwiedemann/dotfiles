@@ -64,6 +64,10 @@ else
 fi
 eval "$(brew shellenv)"
 
+export PAHT="$HOME/.cargo/bin:$PATH"
+
+source "$HOME/.cargo/env"
+
 ###############
 # USER CONFIG #
 ###############
@@ -72,12 +76,10 @@ eval "$(brew shellenv)"
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
-export RUBY_CONFIGURE_OPTS="--with-zlib-dir=$(brew --prefix zlib) --with-openssl-dir=$(brew --prefix openssl@1.1) --with-readline-dir=$(brew --prefix readline) --with-libyaml-dir=$(brew --prefix libyaml) --with-odbc-dir=$(brew --prefix unixodbc)"
-alias be="bundle exec"
-alias ber="bundle exec rake"
-
-# Golang
-export GOPATH=$HOME/_src/goworkspace
+alias b="bundle"
+alias be="b exec"
+alias ber="be rake"
+alias bber="b && ber"
 
 # Open IntelliJ
 function idea {
@@ -87,6 +89,15 @@ function idea {
 # Git kaleidescope integration
 function gdk {
   git difftool -y -t Kaleidoscope $1
+}
+
+function compare {
+  open $(ruby -e 'puts "#{ARGV[0]}/compare/v#{ARGV[1]}...v#{ARGV[2]}"' $1 $2 $3)
+}
+
+function rin {
+  cmd=$(ruby -e 'parts = ARGV[0].split("/"); puts "git clone git@github.com:#{parts[-2]}/#{parts[-1]}.git && cd #{parts[-1]} && git checkout #{ARGV[1]} && bundle && bundle exec rake"' $1 $2)
+  eval $cmd
 }
 
 # Foreground quickly
@@ -108,6 +119,7 @@ alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1T
 alias cat='bat --paging=never'
 alias dread="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias dwipe="cat /dev/null > /tmp/debug.log"
+alias rgrep='rg -uu'
 alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias ls="exa"
 alias ll="exa -alh --git"

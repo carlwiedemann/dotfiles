@@ -1,7 +1,8 @@
--- vim: syntax=lua
+-- vim: set filetype=lua
 -- init.lua
 
 local apps = {
+  {modifiers = {"command", "ctrl"}, key = "d", appName = 'docker desktop', appPath = "/Applications/Docker.app"},
   {modifiers = {"command", "ctrl"}, key = "f", appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"},
   {modifiers = {"command", "ctrl"}, key = "i", appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"},
   {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
@@ -10,6 +11,7 @@ local apps = {
   {modifiers = {"command", "ctrl"}, key = "n", appName = 'evernote', appPath = "/Applications/Evernote.app"},
   {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
   {modifiers = {"command", "ctrl"}, key = "p", appName = 'spotify', appPath = "/Applications/Spotify.app"},
+  {modifiers = {"command", "ctrl"}, key = "s", appName = 'mongodb compass', appPath = "/Applications/MongoDB Compass.app"},
   {modifiers = {"command", "ctrl"}, key = "u", appName = 'tuple', appPath = "/Applications/Tuple.app"}
 }
 
