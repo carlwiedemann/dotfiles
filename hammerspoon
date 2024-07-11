@@ -29,3 +29,14 @@ end
 hs.hotkey.bind({"control"}, "return", function()
   hs.eventtap.keyStroke({}, "escape")
 end)
+
+-- Send ` using `option + '`
+-- Send ~ using `shift + option + '`
+hs.hotkey.bind({"option"}, "'", function()
+  hs.eventtap.keyStroke({}, "`")
+end)
+
+hs.hotkey.bind({"shift", "option"}, "'", function()
+  hs.eventtap.keyStroke({"shift"}, "`")
+end)
+
