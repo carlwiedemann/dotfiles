@@ -72,6 +72,14 @@ source "$HOME/.cargo/env"
 # USER CONFIG #
 ###############
 
+# Load config variables from files.
+function catconfig {
+  cat ~/.config/ENV/$1 | tr -d "\n"
+}
+
+# GitHub
+export GITHUB_TOKEN=$(catconfig GITHUB_TOKEN)
+
 # asdf
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
@@ -80,6 +88,13 @@ alias b="bundle"
 alias be="b exec"
 alias ber="be rake"
 alias bber="b && ber"
+
+# pnpm
+export PNPM_HOME="/Users/carlwiedemann/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # Open IntelliJ
 function idea {
@@ -124,10 +139,25 @@ alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias ls="exa"
 alias ll="exa -alh --git"
 # alias python="python3"
-alias serve="python -m http.server 8000"
+# alias serve="python -m http.server 8000"
 alias trim="sed 's/^ *//' | sed 's/ *$//'"
 alias zshconfig="vim ~/.zshrc"
 alias qlp="qlmanage -p"
+
+function lcc {
+  echo $1 | cut -d '/' -f 5 | tr '-' '_' | sed 's/$/.rb/'
+}
+
+function tlcc {
+  touch $(lcc $1)
+}
+
+# Open up an PR
+function ghpr {
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  OWNER_AND_REPO=$(sed -E 's/.+\/([^\/]+\/[^\/]+$)/\1/' <<< $PWD)
+  open "https://github.com/$OWNER_AND_REPO/pull/new/$BRANCH"
+}
 
 ##########
 # EXTRAS #
@@ -157,3 +187,5 @@ if [[ -z "$TMUX" ]]; then
 else
   tmux switch-client -t ""
 fi
+
+$HOME/last_sunday.sh 1982-08-05 Carl
