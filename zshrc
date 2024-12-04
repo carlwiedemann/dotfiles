@@ -84,6 +84,7 @@ export GITHUB_TOKEN=$(catconfig GITHUB_TOKEN)
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
+export RUBY_YJIT_ENABLE="true"
 alias b="bundle"
 alias be="b exec"
 alias ber="be rake"
