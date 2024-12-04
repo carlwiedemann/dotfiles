@@ -10,11 +10,6 @@ function bringdd {
   cp ~/_src/_dd.rb config/initializers
 }
 
-# Load config variables from files.
-function catconfig {
-  cat ~/.config/$1 | tr -d "\n"
-}
-
 # Kubernetes
 alias k="kubectl"
 
