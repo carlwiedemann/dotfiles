@@ -2,7 +2,7 @@
 
 brew "asdf"
 brew "bat"
-brew "exa"
+brew "eza"
 brew "git"
 brew "git-delta"
 brew "ripgrep"

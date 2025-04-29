@@ -77,8 +77,8 @@ function catconfig {
   cat ~/.config/ENV/$1 | tr -d "\n"
 }
 
-# GitHub
-export GITHUB_TOKEN=$(catconfig GITHUB_TOKEN)
+# # GitHub
+# export GITHUB_TOKEN=$(catconfig GITHUB_TOKEN)
 
 # asdf
 source $(brew --prefix)/opt/asdf/libexec/asdf.sh
@@ -137,8 +137,8 @@ alias dread="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias dwipe="cat /dev/null > /tmp/debug.log"
 alias rgrep='rg -uu'
 alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
-alias ls="exa"
-alias ll="exa -alh --git"
+alias ls="eza"
+alias ll="eza -alh --git"
 # alias python="python3"
 # alias serve="python -m http.server 8000"
 alias trim="sed 's/^ *//' | sed 's/ *$//'"
@@ -188,5 +188,3 @@ if [[ -z "$TMUX" ]]; then
 else
   tmux switch-client -t ""
 fi
-
-$HOME/last_sunday.sh 1982-08-05 Carl
