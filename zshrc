@@ -85,10 +85,10 @@ source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
 export RUBY_YJIT_ENABLE="true"
-alias b="bundle"
-alias be="b exec"
-alias ber="be rake"
-alias bber="b && ber"
+# alias b="bundle"
+# alias be="b exec"
+# alias ber="be rake"
+# alias bber="b && ber"
 
 # pnpm
 export PNPM_HOME="/Users/carlwiedemann/Library/pnpm"
@@ -165,7 +165,7 @@ function ghpr {
 ##########
 
 if [[ -f ~/.zshrc-work ]]; then
-  source .zshrc-work
+  # source .zshrc-work
 fi
 
 ###########
