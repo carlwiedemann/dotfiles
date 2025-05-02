@@ -1,5 +1,4 @@
--- vim: set filetype=lua
--- init.lua
+-- This file must be saved as ~/.hammerspoon/init.lua
 
 local apps = {
   {modifiers = {"command", "ctrl"}, key = "d", appName = 'docker desktop', appPath = "/Applications/Docker.app"},
