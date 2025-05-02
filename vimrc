@@ -3,7 +3,9 @@ set nocompatible
 set number relativenumber
 set ruler
 syntax on
-set modeline
+
+" Let's ignore modelines for now.
+" set modeline
 
 " Set encoding
 set encoding=utf-8
@@ -83,6 +85,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-utils/vim-line'
+Plug 'wsdjeg/vim-lua'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
