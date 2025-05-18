@@ -56,17 +56,8 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='vim'
 
-# Toggle homebrew path based on whether x86 is used or not.
-if uname -m | grep -q 'arm64'; then
-  export PATH="/opt/homebrew/bin:$PATH"
-else
-  export PATH="/usr/local/bin:$PATH"
-fi
+export PATH="/opt/homebrew/bin:$PATH"
 eval "$(brew shellenv)"
-
-# export PAHT="$HOME/.cargo/bin:$PATH"
-
-# source "$HOME/.cargo/env"
 
 ###############
 # USER CONFIG #
@@ -85,10 +76,10 @@ source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
 export RUBY_YJIT_ENABLE="true"
-# alias b="bundle"
-# alias be="b exec"
-# alias ber="be rake"
-# alias bber="b && ber"
+alias b="bundle"
+alias be="b exec"
+alias ber="be rake"
+alias bber="b && ber"
 
 # pnpm
 export PNPM_HOME="/Users/carlwiedemann/Library/pnpm"
@@ -100,6 +91,11 @@ esac
 # Open IntelliJ
 function idea {
   open -na "IntelliJ IDEA.app" --args "$@"
+}
+
+# Open Clion
+function clion {
+  open -na "CLion.app" --args "$@"
 }
 
 # Git kaleidescope integration
@@ -136,15 +132,15 @@ alias cat='bat --paging=never'
 alias dread="touch /tmp/debug.log && less +F /tmp/debug.log"
 alias dwipe="cat /dev/null > /tmp/debug.log"
 alias rgrep='rg -uu'
-alias intel_login="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias ls="eza"
 alias ll="eza -alh --git"
-# alias python="python3"
-# alias serve="python -m http.server 8000"
+alias python="python3"
+alias serve="python -m http.server 8000"
 alias trim="sed 's/^ *//' | sed 's/ *$//'"
 alias zshconfig="vim ~/.zshrc"
 alias qlp="qlmanage -p"
 
+# Leetcode stuff
 function lcc {
   echo $1 | cut -d '/' -f 5 | tr '-' '_' | sed 's/$/.rb/'
 }
@@ -165,7 +161,7 @@ function ghpr {
 ##########
 
 if [[ -f ~/.zshrc-work ]]; then
-  # source .zshrc-work
+  source .zshrc-work
 fi
 
 ###########
@@ -188,3 +184,4 @@ if [[ -z "$TMUX" ]]; then
 else
   tmux switch-client -t ""
 fi
+

@@ -1,75 +1,28 @@
-# GPG setup to launch agent at start.
-export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
+alias src="cd /Users/carlwiedemann/fbsource/whatsapp/iphone"
 
-# Debugging
-# See https://gist.github.com/carlwiedemann/ac9d1c8f58801a9e160ff1b44f16ae39
-# Add this file to global gitignore
-# # git config --global core.excludesfile ~/.gitignore
-function bringdd {
-  cp ~/_src/_dd.rb config/initializers
+function startover {
+  arc pull --project fbsource/waios/stable
+  sl go base
+  make buck-xcode
+  sl top
 }
 
-# Kubernetes
-alias k="kubectl"
-
-# Teleport
-export TELEPORT_PROXY="heimdallr.checkrhq.net"
-export TELEPORT_AUTH="gitlab"
-export TSH_USER=carl.wiedemann
-
-# Gitlab
-export GITLAB_PAT=$(catconfig GITLAB_PAT)
-export GITLAB_CI_TOKEN=$GITLAB_PAT
-
-# Login to container registry so that Docker can pull images
-function checkr_docker_login {
-  echo ${GITLAB_PAT} | docker login -u${USER} gitlab-registry.checkrhq.net --password-stdin
-  echo ${ARTIFACTORY_DOCKER_TOKEN} | docker login -u ${ARTIFACTORY_USER} docker.arti.checkrhq.net --password-stdin
+function strip_local_path {
+  echo "$1" | sed -E 's/\/Users\/carlwiedemann\/fbsource\///'
 }
 
-# Ruby gems & gemfury
-export RUBYGEMS_API_KEY=$(catconfig RUBYGEMS_API_KEY)
-export BUNDLE_GEM__FURY__IO=$(catconfig BUNDLE_GEM__FURY__IO)
-export GEM_FURY_PUSH_TOKEN=$(catconfig GEM_FURY_PUSH_TOKEN)
-
-# Artifactory
-export ARTIFACTORY_USER=$(catconfig ARTIFACTORY_USER)
-export ARTIFACTORY_DOCKER_TOKEN=$(catconfig ARTIFACTORY_DOCKER_TOKEN)
-export BUNDLE_ARTI__CHECKRHQ__NET="$(echo $ARTIFACTORY_USER | sed 's/@/%40/'):$ARTIFACTORY_DOCKER_TOKEN"
-
-# Open a merge request
-function mr {
-  BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  REPO=$(basename $PWD)
-  GROUP=$(git remote get-url origin | cut -d : -f 2 | xargs dirname)
-  open "https://gitlab.checkrhq.net/$GROUP/$REPO/-/merge_requests/new?merge_request%5Bsource_branch%5D=$BRANCH"
+# View file
+function cof {
+  revised=$(strip_local_path "$1")
+  open "https://www.internalfb.com/code/fbsource/[master]/$revised"
 }
 
-# Tests in monolith
-alias testme="VERBOSE_TEST_REPORTS=1 bundle exec m"
-
-# Rename approvals
-function mv_approvals {
-  find spec/fixtures/approvals -name "*.received.json" -exec bash -c 'mv "$1" "${1%.received.json}".approved.json' - '{}' \;
+# View diff
+function cod {
+  open "https://www.internalfb.com/diff/$1"
 }
 
-# Remove approvals
-function rm_approvals {
-  find spec/fixtures/approvals -name "*.received.json" | xargs rm
-}
-
-# View monolith commit on GitLab
-function glmc {
-  open "https://gitlab.checkrhq.net/platform/checkr/-/commit/$1"
-}
-
-# View monolith commit on GitHub
-function ghmc {
-  open "https://github.com/checkr/checkr/commit/$1"
-}
-
-# View monolith file path
-function glmf {
-  open "https://gitlab.checkrhq.net/platform/checkr/-/blob/master/$1"
+# View commit
+function coc {
+  open "https://www.internalfb.com/phabricator/commit/FBS/$1"
 }
