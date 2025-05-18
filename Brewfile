@@ -5,10 +5,13 @@ brew "bat"
 brew "eza"
 brew "git"
 brew "git-delta"
+brew "libyaml"
+brew "readline"
 brew "ripgrep"
 brew "starship"
 brew "tidy-viewer"
 brew "tmux"
+brew "zlib"
 
 # @todo Maybe use asdf to install these instead?
 # brew install golang
@@ -19,4 +22,4 @@ brew "tmux"
 # brew "heroku"
 
 cask "alacritty"
-
+cask "maccy"
