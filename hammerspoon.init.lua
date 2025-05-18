@@ -1,74 +1,77 @@
 -- This file must be saved as ~/.hammerspoon/init.lua
 
+-- local log = hs.logger.new("### HS ###","debug")
+-- log.i("Initializing")
+
 -- @todo Figure out local vs work configs here, how to make different.
--- local apps = {
---   {modifiers = {"command", "ctrl"}, key = "d", appName = 'docker desktop', appPath = "/Applications/Docker.app"},
---   {modifiers = {"command", "ctrl"}, key = "f", appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"},
---   {modifiers = {"command", "ctrl"}, key = "i", appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"},
---   {modifiers = {"command", "ctrl"}, key = "k", appName = 'slack', appPath = "/Applications/Slack.app"},
---   {modifiers = {"command", "ctrl"}, key = "l", appName = 'alacritty', appPath = "/Applications/Alacritty.app"},
---   {modifiers = {"command", "ctrl"}, key = "m", appName = 'chrome', appPath = "/Applications/Google Chrome.app"},
---   {modifiers = {"command", "ctrl"}, key = "n", appName = 'evernote', appPath = "/Applications/Evernote.app"},
---   {modifiers = {"command", "ctrl"}, key = "o", appName = 'zoom', appPath = "/Applications/zoom.us.app"},
---   {modifiers = {"command", "ctrl"}, key = "v", appName = 'preview', appPath = "/Applications/Preview.app"},
---   {modifiers = {"command", "ctrl"}, key = "p", appName = 'spotify', appPath = "/Applications/Spotify.app"},
---   {modifiers = {"command", "ctrl"}, key = "s", appName = 'mongodb compass', appPath = "/Applications/MongoDB Compass.app"},
---   {modifiers = {"command", "ctrl"}, key = "u", appName = 'tuple', appPath = "/Applications/Tuple.app"}
--- }
+-- ```
+--   hostname = hs.host.localizedName()
+--   if (hostname == "fuyo" or hostname == "fuyoshi") then
+-- ```
 
-
-local hotkeyConfigs = {
-  {modifiers = {"command", "ctrl"}, key = "b", apps = {
-      {appName = 'xcode_16.3.0_16e140_fb', appPath = "/Applications/Xcode_16.3.0_16E140_fb.app"}
+----------------------------
+-- Launching applications --
+----------------------------
+local launcherHotkeyConfigs = {
+  {key = "f", apps = {
+      {appName = "finder", appPath = "/System/Library/CoreServices/Finder.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "f", apps = {
-      {appName = 'finder', appPath = "/System/Library/CoreServices/Finder.app"}
+  {key = "h", apps = {
+      {appName = "workchat", appPath = "/Users/carlwiedemann/Applications/Chrome Apps.localized/Workchat.app"},
+      {appName = "whatsapp", appPath = "/Applications/WhatsApp Native.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "h", apps = {
-      {appName = 'workchat', appPath = "/Users/carlwiedemann/Applications/Chrome Apps.localized/Workchat.app"},
-      {appName = 'whatsapp', appPath = "/Applications/WhatsApp Native.app"}
+  {key = "i", apps = {
+      {appName = "xcode_16.3.0_16e140_fb", appPath = "/Applications/Xcode_16.3.0_16E140_fb.app"},
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "i", apps = {
-      {appName = 'clion', appPath = "/Applications/CLion.app"}
+  {key = "j", apps = {
+      {appName = "workchat", appPath = "/Users/carlwiedemann/Applications/Chrome Apps.localized/Workchat.app"},
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "j", apps = {
-      {appName = 'workchat', appPath = "/Users/carlwiedemann/Applications/Chrome Apps.localized/Workchat.app"},
+  {key = "k", apps = {
+      {appName = "whatsapp", appPath = "/Applications/WhatsApp Native.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "k", apps = {
-      {appName = 'whatsapp', appPath = "/Applications/WhatsApp Native.app"}
+  {key = "l", apps = {
+      {appName = "alacritty", appPath = "/Applications/Alacritty.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "l", apps = {
-      {appName = 'alacritty', appPath = "/Applications/Alacritty.app"}
+  {key = "m", apps = {
+      {appName = "chrome", appPath = "/Applications/Google Chrome.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "m", apps = {
-      {appName = 'chrome', appPath = "/Applications/Google Chrome.app"}
+  {key = "n", apps = {
+      {appName = "notes", appPath = "/System/Applications/Notes.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "o", apps = {
-      {appName = 'zoom', appPath = "/Applications/zoom.us.app"}
+  {key = "o", apps = {
+      {appName = "zoom", appPath = "/Applications/zoom.us.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = "s", apps = {
-      {appName = 'simulator', appPath = "/Applications/Xcode_16.3.0_16E140_fb.app/Contents/Developer/Applications/Simulator.app"}
+  {key = "p", apps = {
+      {appName = "spotify", appPath = "/Applications/Spotify.app"}
     }
   },
-  {modifiers = {"command", "ctrl"}, key = ",", apps = {
-      {appName = 'intellij idea', appPath = "/Applications/IntelliJ IDEA.app"}
+  {key = "s", apps = {
+      {appName = "simulator", appPath = "/Applications/Xcode_16.3.0_16E140_fb.app/Contents/Developer/Applications/Simulator.app"}
     }
   },
+  {key = ",", apps = {
+      {appName = "intellij idea", appPath = "/Applications/IntelliJ IDEA.app"}
+    }
+  },
+  {key = ".", apps = {
+      {appName = "clion", appPath = "/Applications/CLion.app"}
+    }
+  }
 }
 
-for _, hotkeyConfig in ipairs(hotkeyConfigs) do
-  hs.hotkey.bind(hotkeyConfig.modifiers, hotkeyConfig.key, function()
+for _, hotkeyConfig in ipairs(launcherHotkeyConfigs) do
+  hs.hotkey.bind({"command", "ctrl"}, hotkeyConfig.key, function()
     for _, appDetails in ipairs(hotkeyConfig.apps) do
-      local app = hs.application.find(appDetails.appName)
+      local app = hs.application.find(appDetails.appName, true, true)
       if app then
         app:setFrontmost(true)
       end
@@ -77,18 +80,86 @@ for _, hotkeyConfig in ipairs(hotkeyConfigs) do
   end)
 end
 
--- Send esc `ctrl + return`
+---------------------------------------------------------------------------------------------------------------
+-- App-based shortcuts based on https://github.com/Hammerspoon/hammerspoon/issues/664#issuecomment-202829038 --
+---------------------------------------------------------------------------------------------------------------
+
+-- Make Xcode JetBrains
+local sendVimWindowNavigationBack = hs.hotkey.new("control", "h", function()
+  hs.eventtap.keyStroke({"control", "shift"}, "l")
+end)
+local sendVimWindowNavigationUp = hs.hotkey.new("control", "k", function()
+  hs.eventtap.keyStroke({"control", "shift"}, "l")
+end)
+local sendVimWindowNavigationDown = hs.hotkey.new("control", "j", function()
+  hs.eventtap.keyStroke({"control"}, "l")
+end)
+local sendShowMembers = hs.hotkey.new("command", "m", function()
+  hs.eventtap.keyStroke({"control"}, "6")
+end)
+local sendShowRecents = hs.hotkey.new("command", "e", function()
+  hs.eventtap.keyStroke({"control"}, "1", 10)
+  hs.eventtap.keyStroke(nil, "down", 10)
+  hs.eventtap.keyStroke(nil, "right", 10)
+  hs.eventtap.keyStroke(nil, "down", 10)
+end)
+local sendShowObjCCompliment = hs.hotkey.new("command", "h", function()
+  hs.eventtap.keyStroke({"control"}, "1", 10)
+  hs.eventtap.keyStroke(nil, "down", 10)
+  hs.eventtap.keyStroke(nil, "down", 10)
+  hs.eventtap.keyStroke(nil, "down", 10)
+  hs.eventtap.keyStroke(nil, "right", 10)
+  hs.eventtap.keyStroke(nil, "return", 10)
+end)
+
+hs.window.filter.new("Xcode")
+  :subscribe(hs.window.filter.windowFocused,function()
+    sendVimWindowNavigationBack:enable()
+    sendVimWindowNavigationDown:enable()
+    sendVimWindowNavigationUp:enable()
+    sendShowMembers:enable();
+    sendShowRecents:enable();
+    sendShowObjCCompliment:enable();
+  end)
+  :subscribe(hs.window.filter.windowUnfocused,function()
+    sendVimWindowNavigationBack:disable()
+    sendVimWindowNavigationDown:disable()
+    sendVimWindowNavigationUp:disable()
+    sendShowMembers:disable();
+    sendShowRecents:disable();
+    sendShowObjCCompliment:disable();
+  end)
+
+-- Simple saving for Vim please (via Alacritty).
+local sendSave = hs.hotkey.new("command", "s", function()
+  hs.eventtap.keyStroke({"shift"}, ";", 5)
+  hs.eventtap.keyStroke(nil, "w", 5)
+  hs.eventtap.keyStroke(nil, "return", 5)
+end)
+
+hs.window.filter.new("Alacritty")
+  :subscribe(hs.window.filter.windowFocused,function()
+    sendSave:enable();
+  end)
+  :subscribe(hs.window.filter.windowUnfocused,function()
+    sendSave:disable();
+  end)
+
+----------
+-- Misc --
+----------
+
+-- Send esc using `ctrl + return`
 hs.hotkey.bind({"control"}, "return", function()
   hs.eventtap.keyStroke({}, "escape")
 end)
 
 -- Send ` using `option + '`
--- Send ~ using `shift + option + '`
 hs.hotkey.bind({"option"}, "'", function()
   hs.eventtap.keyStroke({}, "`")
 end)
 
+-- Send ~ using `shift + option + '`
 hs.hotkey.bind({"shift", "option"}, "'", function()
   hs.eventtap.keyStroke({"shift"}, "`")
 end)
-
