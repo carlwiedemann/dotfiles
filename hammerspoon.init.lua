@@ -130,11 +130,60 @@ hs.window.filter.new("Xcode")
     sendShowObjCCompliment:disable();
   end)
 
+-- Simulate "Visual Block" mode
+local vInsert = false
+k = hs.hotkey.modal.new({"control"}, "v")
+
+function k:entered()
+  vInsert = false
+  if hs.window.frontmostWindow():application():name() == "Xcode" then
+    print("-- BEGIN VISUAL BLOCK --")
+    hs.eventtap.keyStroke(nil, "v", 2)
+  else
+    -- Pass through, which is fine because the binding is disabled by default.
+    hs.eventtap.keyStroke({"control"}, "v", 1)
+    k:exit()
+  end
+end
+
+function k:exited()
+  if hs.window.frontmostWindow():application():name() == "Xcode" then
+    print("-- END VISUAL BLOCK --")
+    -- If we are exiting on insert, then we don't want to send extra escape events.
+    if not vInsert then
+      hs.eventtap.keyStroke(nil, "escape", 2)
+      hs.eventtap.keyStroke(nil, "escape", 2)
+      vInsert = false
+    end
+  end
+end
+
+k:bind(nil, "escape", function()
+  k:exit()
+end)
+
+k:bind(nil, 'j', nil, function()
+    hs.eventtap.keyStroke({"control", "shift"}, "down", 2)
+end)
+
+k:bind(nil, 'k', nil, function()
+      hs.eventtap.keyStroke({"control", "shift"}, "up", 2)
+end)
+
+k:bind({"shift"}, "i", nil, function()
+  hs.eventtap.keyStroke(nil, "v", 2)
+  hs.eventtap.keyStroke(nil, "v", 2)
+  hs.eventtap.keyStroke(nil, "i", 2)
+  vInsert = true
+  -- Insertion effectively ends the visual selection, so we can exit.
+  k:exit()
+end)
+
 -- Simple saving for Vim please (via Alacritty).
 local sendSave = hs.hotkey.new("command", "s", function()
-  hs.eventtap.keyStroke({"shift"}, ";", 5)
-  hs.eventtap.keyStroke(nil, "w", 5)
-  hs.eventtap.keyStroke(nil, "return", 5)
+  hs.eventtap.keyStroke({"shift"}, ";", 2)
+  hs.eventtap.keyStroke(nil, "w", 2)
+  hs.eventtap.keyStroke(nil, "return", 2)
 end)
 
 hs.window.filter.new("Alacritty")
@@ -151,12 +200,12 @@ hs.window.filter.new("Alacritty")
 
 -- Send esc using `ctrl + return`
 hs.hotkey.bind({"control"}, "return", function()
-  hs.eventtap.keyStroke({}, "escape")
+  hs.eventtap.keyStroke(nil, "escape")
 end)
 
 -- Send ` using `option + '`
 hs.hotkey.bind({"option"}, "'", function()
-  hs.eventtap.keyStroke({}, "`")
+  hs.eventtap.keyStroke(nil, "`")
 end)
 
 -- Send ~ using `shift + option + '`
