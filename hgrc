@@ -16,3 +16,6 @@ Kaleidoscope.args = --merge --output $output --base $base -- $local $other
 
 [pager]
 pager = delta
+
+[hooks]
+update.waios = test -f whatsapp/iphone/tools/sapling/hooks/post_update.sh && whatsapp/iphone/tools/sapling/hooks/post_update.sh || true
