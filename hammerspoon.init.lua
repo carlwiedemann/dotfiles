@@ -187,12 +187,21 @@ local sendSave = hs.hotkey.new("command", "s", function()
   hs.eventtap.keyStroke(nil, "return", 2)
 end)
 
+-- Simple quitting for Vim please (via Alacritty).
+local sendQuit = hs.hotkey.new("command", "w", function()
+  hs.eventtap.keyStroke({"shift"}, ";", 2)
+  hs.eventtap.keyStroke(nil, "q", 2)
+  hs.eventtap.keyStroke(nil, "return", 2)
+end)
+
 hs.window.filter.new("Alacritty")
   :subscribe(hs.window.filter.windowFocused,function()
     sendSave:enable();
+    sendQuit:enable();
   end)
   :subscribe(hs.window.filter.windowUnfocused,function()
     sendSave:disable();
+    sendQuit:disable();
   end)
 
 ----------
