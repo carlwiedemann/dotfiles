@@ -23,7 +23,8 @@ local launcherHotkeyConfigs = {
     }
   },
   {key = "i", apps = {
-      {appName = "xcode_16.3.0_16e140_fb", appPath = "/Applications/Xcode_16.3.0_16E140_fb.app"},
+      -- {appName = "xcode_16.3.0_16e140_fb", appPath = "/Applications/Xcode_16.3.0_16E140_fb.app"},
+      {appName = "xcode_16.4.0_16f6_fb", appPath = "/Applications/Xcode_16.4.0_16F6_fb.app"},
     }
   },
   {key = "j", apps = {
