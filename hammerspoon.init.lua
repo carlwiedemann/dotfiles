@@ -56,7 +56,7 @@ local launcherHotkeyConfigs = {
     }
   },
   {key = "s", apps = {
-      {appName = "simulator", appPath = "/Applications/Xcode_16.3.0_16E140_fb.app/Contents/Developer/Applications/Simulator.app"}
+      {appName = "simulator", appPath = "/Applications/Xcode_16.4.0_16F6_fb.app/Contents/Developer/Applications/Simulator.app"}
     }
   },
   {key = ",", apps = {
