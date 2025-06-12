@@ -59,6 +59,10 @@ local launcherHotkeyConfigs = {
       {appName = "simulator", appPath = "/Applications/Xcode_16.4.0_16F6_fb.app/Contents/Developer/Applications/Simulator.app"}
     }
   },
+  {key = "u", apps = {
+      {appName = "flipper", appPath = "/Users/carlwiedemann/Applications/Chrome Apps.localized/.flipper/Flipper.app"}
+    }
+  },
   {key = ",", apps = {
       {appName = "intellij idea", appPath = "/Applications/IntelliJ IDEA.app"}
     }

@@ -1,8 +1,8 @@
 alias src="cd /Users/carlwiedemann/fbsource/whatsapp/iphone"
 
 function startover {
-  arc pull --project fbsource/waios/stable
   sl go base
+  arc pull --project fbsource/waios/stable
   make buck-xcode
   sl top
 }
@@ -26,3 +26,6 @@ function cod {
 function coc {
   open "https://www.internalfb.com/phabricator/commit/FBS/$1"
 }
+
+# Sapling stuff
+alias slr=sl go base && arc pull --project fbsource/waios/stable
