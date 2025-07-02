@@ -1,0 +1,72 @@
+#! /usr/bin/env ruby
+
+require 'find'
+
+found = {
+  m: [],
+  h: [],
+  swift: []
+}
+
+Find.find('.') do |path|
+  if File.file?(path)
+    found.keys.each do |ext|
+      if path.end_with?(".#{ext.to_s}")
+        found[ext].push(path)
+      end
+    end
+  end
+end
+
+with_objc = found[:h].any? || found[:m].any?
+with_swift = found[:swift].any?
+
+command_cleanup = nil
+
+BRIDGE_FILE = "./bridging.h"
+
+if with_swift
+  subcommand = "swiftc"
+  if with_objc
+    if File.file?(BRIDGE_FILE)
+      File.delete(BRIDGE_FILE)
+    end
+    File.write(BRIDGE_FILE, found[:h].map { "#import \"#{_1}\"" }.join("\n"))
+    options = ["-import-objc-header #{BRIDGE_FILE}"]
+    command_cleanup = "rm #{BRIDGE_FILE}"
+  else
+    options = []
+  end
+elsif with_objc
+  subcommand = "clang"
+  options = ["-fobjc-arc"]
+end
+
+files = found[:m] + found[:swift]
+
+command_build = "xcrun #{subcommand} #{options.join(' ')} #{files.join(' ')} -o app"
+command_execute = "./app"
+command_remove = "rm ./app"
+
+commands = []
+commands.push(command_build)
+commands.push(command_cleanup) if command_cleanup
+commands.push(command_execute)
+commands.push(command_remove)
+command = commands.join(' && ')
+
+def putsc(fd, s)
+  # red     31
+  # green   32
+  # yellow  33
+  # blue    34
+  # magenta 35
+  # cyan    36
+  fd.puts("\e[#{32}m#{s}\e[0m")
+end
+
+verbose = ARGV.include?("-v")
+
+putsc(STDERR, "Running `#{command}`...") if verbose
+
+puts command

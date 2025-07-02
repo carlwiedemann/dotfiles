@@ -127,6 +127,12 @@ zle -N fancy_ctrl_z
 bindkey '^Z' fancy_ctrl_z
 
 # Misc
+export CUSTOM_BIN="/Users/carlwiedemann/_bin"
+case ":$PATH:" in
+  *":$CUSTOM_BIN:"*) ;;
+  *) export PATH="$CUSTOM_BIN:$PATH" ;;
+esac
+
 alias backup="rsync -av --delete --force --ignore-errors ~/* /Volumes/SanDisk-1TB/mba2022"
 alias cat='bat --paging=never'
 alias dread="touch /tmp/debug.log && less +F /tmp/debug.log"
@@ -137,8 +143,11 @@ alias ll="eza -alh --git"
 alias python="python3"
 alias serve="python -m http.server 8000"
 alias trim="sed 's/^ *//' | sed 's/ *$//'"
+alias cleanr="ruby -e 'puts gets(nil).gsub(\"\r\",\"\")'"
 alias zshconfig="vim ~/.zshrc"
 alias qlp="qlmanage -p"
+alias soc="zsh -c \"\$(rsoc)\""
+alias socv="zsh -c \"\$(rsoc -v)\""
 
 # Leetcode stuff
 function lcc {
@@ -184,4 +193,3 @@ if [[ -z "$TMUX" ]]; then
 else
   tmux switch-client -t ""
 fi
-

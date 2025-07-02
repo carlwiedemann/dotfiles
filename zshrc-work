@@ -1,10 +1,12 @@
 alias src="cd /Users/carlwiedemann/fbsource/whatsapp/iphone"
+alias srcf="cd /Users/carlwiedemann/fbsource/whatsapp/iphone/modules/Main/Features"
 
 function startover {
-  sl go base
+  ORIGINAL=$(sl whereami)
   arc pull --project fbsource/waios/stable
+  sl go base
   make buck-xcode
-  sl top
+  sl go $ORIGINAL
 }
 
 function strip_local_path {
