@@ -1,1 +1,2 @@
-I = STDIN.readlines.map(&:chomp)
+II = STDIN.readlines.map(&:chomp)
+I = II.first

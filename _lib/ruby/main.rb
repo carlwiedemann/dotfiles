@@ -1,1 +1,1 @@
-Dir.glob(File.dirname(__FILE__) + '/*.rb').reject { _1 == __FILE__ }.each { require _1 }
+Dir.glob(File.dirname(__FILE__) + '/*.rb').each { _1 == __FILE__ || (require _1) }
