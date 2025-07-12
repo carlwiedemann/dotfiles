@@ -76,10 +76,15 @@ source $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # Ruby
 export RUBY_YJIT_ENABLE="true"
+export RUBYLIB=~/_lib/ruby
 alias b="bundle"
 alias be="b exec"
 alias ber="be rake"
 alias bber="b && ber"
+alias re="ruby -r main.rb -e"
+function rep {
+  re "puts $1"
+}
 
 # pnpm
 export PNPM_HOME="/Users/carlwiedemann/Library/pnpm"
@@ -170,6 +175,7 @@ function ghpr {
 ##########
 
 if [[ -f ~/.zshrc-work ]]; then
+  alias zshconfigw="vim ~/.zshrc-work"
   source .zshrc-work
 fi
 
