@@ -1,6 +1,8 @@
 alias src="cd /Users/carlwiedemann/fbsource/whatsapp/iphone"
 alias srcf="cd /Users/carlwiedemann/fbsource/whatsapp/iphone/modules/Main/Features"
 
+export WA_FIRST=$(catconfig WA_FIRST)
+
 function startover {
   arc pull --project fbsource/waios/stable
   ORIGINAL=$(sl whereami)
