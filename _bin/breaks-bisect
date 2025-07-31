@@ -1,0 +1,28 @@
+#! /usr/bin/env bash
+
+# Usage: breaks-bisect [--without] "search_string"
+
+# Get current repo path for lookup
+repo_path=$(pwd)
+
+# Look up initial commit from config file
+config_file="$HOME/.config/git-bisect-config"
+if [[ ! -f "$config_file" ]]; then
+    echo "Error: Config file $config_file not found"
+    echo "Format: /path/to/repo=commit_sha"
+    exit 1
+fi
+
+initial_commit=$(grep "^$repo_path=" "$config_file" | cut -d'=' -f2)
+if [[ -z "$initial_commit" ]]; then
+    echo "Error: No initial commit configured for $repo_path"
+    echo "Add entry to $config_file: $repo_path=<commit_sha>"
+    exit 1
+fi
+
+echo "Starting bisect: $initial_commit (good) to HEAD (bad)"
+git bisect start
+git bisect bad
+git bisect good "$initial_commit"
+git bisect run breaks-search "$@"
+git bisect reset

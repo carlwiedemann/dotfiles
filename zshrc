@@ -179,6 +179,10 @@ if [[ -f ~/.zshrc-work ]]; then
   source .zshrc-work
 fi
 
+if [[ -f ~/_src/johnalanwoods/RAMDisk/src/ramdisk.sh ]]; then
+  source ~/_src/johnalanwoods/RAMDisk/src/ramdisk.sh
+fi
+
 ###########
 # ENDINGS #
 ###########

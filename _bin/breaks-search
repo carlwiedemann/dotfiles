@@ -42,4 +42,11 @@ if [[ -z "$search_string" ]]; then
 fi
 
 # Perform the search and get count
-exit $([[ $(git grep "$search_string" | wc -l) -eq 0 ]] && echo $exit_not_found || echo $exit_found)
+
+if [[ $(git grep "$search_string" | wc -l) -eq 0 ]]; then
+  echo "not found"
+  exit $exit_not_found
+else
+  echo "found"
+  exit $exit_found
+fi
