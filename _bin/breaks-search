@@ -10,15 +10,17 @@ usage() {
 
 # Initialize variables
 search_string=""
-exit_not_found=1
-exit_found=0
+# By default: found == "bad", not found == "good"
+exit_not_found=0
+exit_found=1
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
         --without)
-            exit_not_found=0
-            exit_found=1
+            # If we pass --without: found == "good", not found == "bad"
+            exit_not_found=1
+            exit_found=0
             shift
             ;;
         -*)
@@ -44,9 +46,9 @@ fi
 # Perform the search and get count
 
 if [[ $(git grep "$search_string" | wc -l) -eq 0 ]]; then
-  echo "not found"
+  echo "Not found"
   exit $exit_not_found
 else
-  echo "found"
+  echo "Found"
   exit $exit_found
 fi

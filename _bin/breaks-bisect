@@ -1,28 +1,81 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-# Usage: breaks-bisect [--without] "search_string"
+# Usage: breaks-bisect [--since <commit>] [--without] "search_string"
 
-# Get current repo path for lookup
-repo_path=$(pwd)
+usage() {
+    echo "Usage: $0 [--since <commit>] [--without] <search_string>"
+    echo "  --since <commit>  : Use specified commit as good commit (overrides config)"
+    echo "  --without         : Exit 1 if string found, 0 if not found"
+    exit 2
+}
 
-# Look up initial commit from config file
-config_file="$HOME/.config/git-bisect-config"
-if [[ ! -f "$config_file" ]]; then
-    echo "Error: Config file $config_file not found"
-    echo "Format: /path/to/repo=commit_sha"
-    exit 1
+# Initialize variables
+commit_start=""
+commit_end=""
+search_args=()
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --until)
+            if [[ -z "$2" ]]; then
+                echo "Error: --until requires a commit SHA"
+                usage
+            fi
+            commit_end="$2"
+            shift 2
+            ;;
+        --since)
+            if [[ -z "$2" ]]; then
+                echo "Error: --since requires a commit SHA"
+                usage
+            fi
+            commit_start="$2"
+            shift 2
+            ;;
+        *)
+            # Collect remaining arguments for the search script
+            search_args+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# If no --since provided, look up from config file
+if [[ -z "$commit_start" ]]; then
+    repo_path=$(pwd)
+    config_file="$HOME/.config/git-bisect-config"
+
+    if [[ ! -f "$config_file" ]]; then
+        echo "Error: Config file $config_file not found and no --since provided"
+        echo "Either create config file with format: /path/to/repo=commit_sha"
+        echo "Or use --since <commit> option"
+        exit 1
+    fi
+
+    commit_start=$(grep "^$repo_path=" "$config_file" | cut -d'=' -f2)
+    if [[ -z "$commit_start" ]]; then
+        echo "Error: No initial commit configured for $repo_path and no --since provided"
+        echo "Add entry to $config_file: $repo_path=<commit_sha>"
+        echo "Or use --since <commit> option"
+        exit 1
+    fi
 fi
 
-initial_commit=$(grep "^$repo_path=" "$config_file" | cut -d'=' -f2)
-if [[ -z "$initial_commit" ]]; then
-    echo "Error: No initial commit configured for $repo_path"
-    echo "Add entry to $config_file: $repo_path=<commit_sha>"
-    exit 1
+# If no --until provided, use whatever current commit is
+if [[ -z "$commit_end" ]]; then
+  commit_end=$(git rev-parse HEAD)
 fi
 
-echo "Starting bisect: $initial_commit (good) to HEAD (bad)"
+# Validate we have search arguments
+if [[ ${#search_args[@]} -eq 0 ]]; then
+    echo "Error: Must provide a search string"
+    usage
+fi
+
+echo "Starting bisect: $commit_start (good) to HEAD (bad)"
 git bisect start
-git bisect bad
-git bisect good "$initial_commit"
-git bisect run breaks-search "$@"
+git bisect bad "$commit_end"
+git bisect good "$commit_start"
+git bisect run breaks-search "${search_args[@]}"
 git bisect reset
