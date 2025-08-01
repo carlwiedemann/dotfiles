@@ -1,21 +1,23 @@
 # dotfiles
 
-| Library      | Source        | Destination                       |
-| ------------ | ------------- | --------------------------------- |
-| Alacrity     | alacritty.yml | ~/.config/alacritty/alacritty.yml |
-| asdf         | asdfrc        | ~/.asdfrc                         |
-| Awesome Print| aprc          | ~/.aprc                           |
-| brew bundle  | Brewfile      | ~/Brewfile (optional)             |
-| bat          | bat           | ~/.config/bat/config              |
-| Git config   | gitconfig     | ~/.gitconfig                      |
-| Git ignore   | gitignore     | ~/.gitignore                      |
-| Hammerspoon  | hammerspoon   | ~/.hammerspoon/init.lua           |
-| ideavimrc    | ideavimrc     | ~/.ideavimrc                      |
-| Starship     | starshop.toml | ~/.config/starship.toml           |
-| Tmux         | tmux.conf     | ~/.tmux.conf                      |
-| vimrc        | vimrc         | ~/.vimrc                          |
-| zshrc base   | zshrc         | ~/.zshrc                          |
-| zshrc work   | zshrc-work    | ~/.zshrc-work                     |
+| Library        | Source         | Destination                        |
+| -------------- | -------------  | ---------------------------------- |
+| Alacrity       | alacritty.toml | ~/.config/alacritty/alacritty.toml |
+| asdf           | asdfrc         | ~/.asdfrc                          |
+| Awesome Print  | aprc           | ~/.aprc                            |
+| brew bundle    | Brewfile       | ~/Brewfile (optional)              |
+| bat            | bat            | ~/.config/bat/config               |
+| Git config     | gitconfig      | ~/.gitconfig                       |
+| Git ignore     | gitignore      | ~/.gitignore                       |
+| Hammerspoon    | hammerspoon    | ~/.hammerspoon/init.lua            |
+| ideavimrc      | ideavimrc      | ~/.ideavimrc                       |
+| Starship       | starshop.toml  | ~/.config/starship.toml            |
+| Tmux           | tmux.conf      | ~/.tmux.conf                       |
+| vimrc          | vimrc          | ~/.vimrc                           |
+| zshrc base     | zshrc          | ~/.zshrc                           |
+| zshrc work     | zshrc-work     | ~/.zshrc-work                      |
+| Custom scripts | \_bin          | ~/\_bin                            |
+| Custom support | \_lib          | ~/\_lib                            |
 
 # @todo
 
