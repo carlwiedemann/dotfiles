@@ -4,6 +4,11 @@ alias srcf="cd /Users/carlwiedemann/fbsource/whatsapp/iphone/modules/Main/Featur
 export WA_FIRST=$(catconfig WA_FIRST)
 
 function startover {
+  if [[ $(pwd) != "/Users/carlwiedemann/fbsource/whatsapp/iphone" ]]; then
+    echo "Wrong directory, aborting!"
+    return 1
+  fi
+
   arc pull --project fbsource/waios/stable
   ORIGINAL=$(sl whereami)
   sl go base
