@@ -17,20 +17,20 @@ search_args=()
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --until)
-            if [[ -z "$2" ]]; then
-                echo "Error: --until requires a commit SHA"
-                usage
-            fi
-            commit_end="$2"
-            shift 2
-            ;;
         --since)
             if [[ -z "$2" ]]; then
                 echo "Error: --since requires a commit SHA"
                 usage
             fi
             commit_start="$2"
+            shift 2
+            ;;
+        --until)
+            if [[ -z "$2" ]]; then
+                echo "Error: --until requires a commit SHA"
+                usage
+            fi
+            commit_end="$2"
             shift 2
             ;;
         *)

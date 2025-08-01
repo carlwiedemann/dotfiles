@@ -26,9 +26,14 @@ function cod {
   open "https://www.internalfb.com/diff/$1"
 }
 
-# View commit
+# View commit in monorepo
 function coc {
   open "https://www.internalfb.com/phabricator/commit/FBS/$1"
+}
+
+# View commit in whatsapp git repo
+function cocg {
+  open "https://www.internalfb.com/phabricator/commit/WAIPHONE/$1"
 }
 
 # Kill the debugger

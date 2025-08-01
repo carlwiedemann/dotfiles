@@ -3,14 +3,15 @@
 # Function to display usage
 usage() {
     echo "Usage: $0 [--without] <search_string>"
-    echo "  Exit 0 if string is found, exit 1 if not found"
-    echo "  Pass --without to exit 1 if string is found, exit 0 if not found"
+    echo "  (default)  : Exit 0 if string is found, exit 1 if not found"
+    echo "  --without  : Exit 1 if string found, 0 if not found"
     exit 2
 }
 
 # Initialize variables
 search_string=""
 # By default: found == "bad", not found == "good"
+# In other words: "When was this code added?"
 exit_not_found=0
 exit_found=1
 
@@ -19,6 +20,7 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         --without)
             # If we pass --without: found == "good", not found == "bad"
+            # In other words: "When was this code removed?"
             exit_not_found=1
             exit_found=0
             shift
